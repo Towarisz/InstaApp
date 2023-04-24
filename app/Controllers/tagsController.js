@@ -1,4 +1,4 @@
-const TagModel = require("./TagModel.js")
+const TagModel = require("../Models/TagModel.js")
 
 class TagsController{
     tagArray = [];

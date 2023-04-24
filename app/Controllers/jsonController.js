@@ -1,4 +1,4 @@
-const Photo = require("./PhotoModel.js")
+const Photo = require("../Models/PhotoModel.js")
 
 class JsonController{
     photoArray = [];

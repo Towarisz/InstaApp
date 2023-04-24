@@ -1,7 +1,7 @@
-const Utils = require("./utils.js")
-const fileController = require("./fileController.js")
-const jsonController = require("./jsonController.js")
-const tagsController = require("./tagsController.js")
+const Utils = require("../utils.js")
+const fileController = require("../Controllers/fileController.js")
+const jsonController = require("../Controllers/jsonController.js")
+const tagsController = require("../Controllers/tagsController.js")
 const formidable = require("formidable")
 const Path = require('path');
 

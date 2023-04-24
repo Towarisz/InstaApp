@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "formidable": "^1.2.2"
+    "formidable": "^1.2.2",
+    "sharp": "^0.32.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
