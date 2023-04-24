@@ -18,14 +18,14 @@ nazwa_albumu
 GET http://localhost:3000/api/photos HTTP/1.1
 
 ### GET
-GET http://localhost:3000/api/photos/1680510940515 HTTP/1.1
+GET http://localhost:3000/api/photos/1682324386683 HTTP/1.1
 
 ### PATCH - updatuj wg id
 PATCH  http://localhost:3000/api/photos HTTP/1.1
 content-type: application/json
 
 {
-    "id": 1680511678367,
+    "id": 1682324386683,
     "status":"change"
 }
 ### PATCH - tags
@@ -33,7 +33,7 @@ PATCH  http://localhost:3000/api/photos/tags HTTP/1.1
 content-type: application/json
 
 {
-    "id": 1681720976180,
+    "id": 1682324386683,
     "tags":[
         {"id":10},
         {"id":12},
@@ -43,4 +43,4 @@ content-type: application/json
 
 
 ### DELETE
-DELETE http://localhost:3000/api/photos/1681465799361
+DELETE http://localhost:3000/api/photos/1682324757852

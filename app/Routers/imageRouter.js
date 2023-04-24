@@ -26,10 +26,10 @@ const imageRouter = async (req, res) => {
             form.keepExtensions = true;
             form.parse(req, function (error, fields, files) {
                 let fileName = Date.now();
-                let url = Path.join(__dirname, '../upload',fields["album"],fileName+"."+files.file.name.split(".").pop());
-                fileController.savePhoto(files.file,fileName,fields).then(()=>{
+                let url = Path.join(__dirname, '../upload',fileName+"",fileName+"."+files.file.name.split(".").pop());
+                fileController.savePhoto(files.file,fileName).then(()=>{
                     res.writeHead(200, { "content-type": "application/json;charset=utf-8" })
-                    res.end(JSON.stringify(jsonController.add(fileName,fields["album"],files.file.name,url),null,5))
+                    res.end(JSON.stringify(jsonController.add(fileName,fileName,files.file.name,url),null,5))
                 })
             });
         }
