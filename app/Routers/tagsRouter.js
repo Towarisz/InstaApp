@@ -1,5 +1,5 @@
 const Utils = require("../utils.js")
-const tagsController = require("./tagsController.js");
+const tagsController = require("../Controllers/tagsController.js");
 const tagsRouter = async (req, res) => {
 
     switch (req.method) {
