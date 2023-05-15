@@ -8,10 +8,17 @@ Content-Type: video/mp4
 < ./aaa.mp4
 
 ------FormBoundary1234
-Content-Disposition: form-data; name="album"
-Content-Type: text/plain
 
-nazwa_albumu
+### POST - zdjecia
+POST http://localhost:3000/api/photos HTTP/1.1
+Content-Type: multipart/form-data; boundary=----FormBoundary1234
+
+------FormBoundary1234
+Content-Disposition: form-data; name="file"; filename="test.jpg"
+Content-Type: image/jpg
+
+< ./test.jpg
+
 ------FormBoundary1234
 
 ### GET

@@ -1,3 +1,5 @@
+const sharp = require("sharp");
+
 class Utils{
     getRequestData = async (req) => {
 
@@ -21,6 +23,26 @@ class Utils{
         })
     
     }
+
+    getMetadata = async (path) => {
+        return new Promise(async (resolve, reject) => {
+        try {
+    
+            if (path) {
+                let meta = await sharp(path)
+                    .metadata()
+                    console.log(meta);
+                resolve(meta)
+            }
+            else {
+                resolve("url_not_found")
+            }
+    
+        } catch (err) {
+            reject(err.mesage)
+        }
+    })
+}
 }
 
 let utils = new Utils();
