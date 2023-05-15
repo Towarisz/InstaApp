@@ -1,3 +1,12 @@
 
 ### GET
 GET http://localhost:3000/api/filters/metadata/1684138224550 HTTP/1.1
+
+### PATCH
+PATCH http://localhost:3000/api/filters HTTP/1.1
+
+{
+    "id":1684140666209,
+    "filter":"ROTATE",
+    "filterAction":"90"
+}
