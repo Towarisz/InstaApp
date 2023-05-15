@@ -15,10 +15,7 @@ class JsonController{
     getById(_id){
         return this.photoArray.find(element => element.id == _id)
     }
-    getPath(_id){
-        return this.photoArray.find(element => element.id == _id)
-    }
-
+ 
     update(_id,status){
         let photo = this.photoArray.find(element => element.id == _id)
         photo.update(status,Date.now());
