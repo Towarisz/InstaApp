@@ -1,0 +1,16 @@
+### POST
+POST http://localhost:3000/api/user/register HTTP/1.1
+
+{
+    "name":"Mateusz",
+    "lastname":"Stoch",
+    "email":"aaa@gmail.com",
+    "passwd":"aaabbbccc"
+}
+### POST
+POST http://localhost:3000/api/user/login HTTP/1.1
+
+{
+    "email":"aaa@gmail.com",
+    "passwd":"aaabbbccc"
+}
