@@ -36,5 +36,5 @@ const tagsRouter = async (req, res) => {
     }
 }
 
-    module.exports = tagsRouter
+module.exports = tagsRouter
     

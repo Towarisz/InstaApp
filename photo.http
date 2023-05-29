@@ -50,4 +50,4 @@ content-type: application/json
 
 
 ### DELETE
-DELETE http://localhost:3000/api/photos/1682324757852
+DELETE http://localhost:3000/api/photos/1685345353950

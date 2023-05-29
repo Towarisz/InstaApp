@@ -8,6 +8,16 @@ class FiltersController{
             .rotate(parseInt(degrees))
             .toFile(path.join(__dirname,"../","upload/",String(photo.album),rotatedImageId+"."+photo.url.split(".").pop()));
     }
+    grayscale = async (photo,rotatedImageId)=>{
+        await sharp(photo.url)
+            .grayscale()
+            .toFile(path.join(__dirname,"../","upload/",String(photo.album),rotatedImageId+"."+photo.url.split(".").pop()));
+    }
+    negate = async (photo,rotatedImageId)=>{
+        await sharp(photo.url)
+            .negate()
+            .toFile(path.join(__dirname,"../","upload/",String(photo.album),rotatedImageId+"."+photo.url.split(".").pop()));
+    }
     
 }
 

@@ -29,6 +29,14 @@ const filtersRouter = async (req, res) => {
                             updatedPhoto = await jsonController.update(data.id,"ROTATE")
                             filtersController.rotate(photo,updatedPhoto.history.slice(-1)[0].lastModifiedDate,data.filterAction)
                         break;
+                        case "GRAYSCALE":
+                            updatedPhoto = await jsonController.update(data.id,"GRAYSCALE")
+                            filtersController.grayscale(photo,updatedPhoto.history.slice(-1)[0].lastModifiedDate)
+                        break;
+                        case "NEGATE":
+                            updatedPhoto = await jsonController.update(data.id,"NEGATE")
+                            filtersController.negate(photo,updatedPhoto.history.slice(-1)[0].lastModifiedDate)
+                        break;
                     }
                     res.writeHead(200, { "content-type": "application/json;charset=utf-8" })
                     res.end(JSON.stringify(updatedPhoto,null,5));
