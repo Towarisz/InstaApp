@@ -8,7 +8,7 @@ const userRouter = async (req, res) => {
     switch (req.method) {
         case "GET":
             if(req.url.match(/\/api\/user\/verify\/(.+)/)){
-                token = req.url.match(/\/api\/user\/verify\/(.+)/)[1] // TODO naprawic pobieranie tokena
+                token = req.url.match(/\/api\/user\/verify\/(.+)/)[0] // TODO naprawic pobieranie tokena
                 user = users.find(el=>el.token == token)
                 if(user != -1){
                     if(jwt.verify(token, process.env.token_secret_key)){
