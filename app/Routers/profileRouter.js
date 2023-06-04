@@ -1,4 +1,6 @@
 const Utils = require("../utils.js");
+const jwt = require("jsonwebtoken");
+
 const profileRouter = async (req, res) => {
      switch (req.method) {
           case "GET":
