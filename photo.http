@@ -12,6 +12,7 @@ Content-Type: video/mp4
 ### POST - zdjecia
 POST http://localhost:3000/api/photos HTTP/1.1
 Content-Type: multipart/form-data; boundary=----FormBoundary1234
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NTg3NTIyMjU4NiwiaWF0IjoxNjg1ODc1MjI5LCJleHAiOjE2ODg0NjcyMjl9.EAiENDrunIUm6yEzwfNsRlXoTmKS2LoqhS5zqnDrtqA
 
 ------FormBoundary1234
 Content-Disposition: form-data; name="file"; filename="test.jpg"
@@ -38,9 +39,10 @@ content-type: application/json
 ### PATCH - tags
 PATCH  http://localhost:3000/api/photos/tags HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NTg3NTIyMjU4NiwiaWF0IjoxNjg1ODc1MjI5LCJleHAiOjE2ODg0NjcyMjl9.EAiENDrunIUm6yEzwfNsRlXoTmKS2LoqhS5zqnDrtqA
 
 {
-    "id": 1685349649848,
+    "id": 1685875250263,
     "tags":[
         {"id":10},
         {"id":12},
@@ -50,4 +52,5 @@ content-type: application/json
 
 
 ### DELETE
-DELETE http://localhost:3000/api/photos/1685345353950
+DELETE http://localhost:3000/api/photos/1685875250263
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NTg3NTIyMjU4NiwiaWF0IjoxNjg1ODc1MjI5LCJleHAiOjE2ODg0NjcyMjl9.EAiENDrunIUm6yEzwfNsRlXoTmKS2LoqhS5zqnDrtqA
