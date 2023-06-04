@@ -2,14 +2,13 @@ const Utils = require("../utils.js");
 const UserModel = require("../Models/UserModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const users = [];
 const userRouter = async (req, res) => {
      switch (req.method) {
           case "GET":
                if (req.url.match(/\/api\/user\/verify\/(.+)/)) {
                     token = req.url.replace("/api/user/verify/", "");
 
-                    user = users.find((el) => el.token == token);
+                    user = Utils.users.find((el) => el.token == token);
                     if (user) {
                          if (jwt.verify(token, process.env.jwt_secret_key)) {
                               user.verify();
@@ -23,9 +22,14 @@ const userRouter = async (req, res) => {
                          res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
                          res.end(JSON.stringify({ error: "user does not exist" }, null, 5));
                     }
+               } else if (req.url == "/api/user/logout") {
+                    let requestToken = req.headers.authorization.split(" ")[1];
+                    Utils.activeTokens = Utils.activeTokens.filter((x) => x != requestToken);
+                    res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
+                    res.end(JSON.stringify({ message: "user logged out" }, null, 5));
                } else if (req.url == "/api/user") {
-                    res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
-                    res.end(JSON.stringify(users, null, 5));
+                    res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
+                    res.end(JSON.stringify(Utils.users, null, 5));
                }
                break;
           case "POST":
@@ -44,7 +48,7 @@ const userRouter = async (req, res) => {
                          }
                     );
                     if (
-                         users.find((el) => {
+                         Utils.users.find((el) => {
                               el.email == data.email && el.verfied == true;
                          })
                     ) {
@@ -52,14 +56,14 @@ const userRouter = async (req, res) => {
                          res.end(JSON.stringify({ error: "email already in use" }, null, 5));
                     } else {
                          user = new UserModel(data.name, data.lastname, data.email, encryptedPassword, token);
-                         users.push(user);
+                         Utils.users.push(user);
                          res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
                          res.end(JSON.stringify({ message: `please verify on http://localhost:3000/api/user/verify/${user.token}` }, null, 5));
                     }
                } else if (req.url == "/api/user/login") {
                     let data = await Utils.getRequestData(req);
                     data = JSON.parse(data);
-                    user = users.find((el) => el.email == data.email);
+                    user = Utils.users.find((el) => el.email == data.email);
                     if (user != -1) {
                          if (user.verified) {
                               let decrypted = await bcrypt.compare(data.passwd, user.passwd);
@@ -74,6 +78,7 @@ const userRouter = async (req, res) => {
                                         }
                                    );
                                    user.giveNewToken(token);
+                                   Utils.activeTokens.push(token);
                                    res.setHeader("Authorization", "Bearer " + token);
                                    res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
                                    res.end();

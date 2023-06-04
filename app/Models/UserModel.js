@@ -22,6 +22,10 @@ class UserModel {
      verify = () => {
           this.verified = true;
      };
+     changeName(_name, _lastname) {
+          this.name = _name;
+          if (_lastname) this.lastname = _lastname;
+     }
 }
 
 module.exports = UserModel;

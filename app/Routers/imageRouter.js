@@ -28,7 +28,7 @@ const imageRouter = async (req, res) => {
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
-                    if (jwt.verify(requestToken, process.env.jwt_secret_key)) {
+                    if (jwt.verify(requestToken, process.env.jwt_secret_key) && Utils.activeTokens.findIndex(requestToken) != -1) {
                          let decodedToken = jwt.decode(requestToken);
                          let uid = decodedToken.id;
 
@@ -58,7 +58,7 @@ const imageRouter = async (req, res) => {
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
-                    if (jwt.verify(requestToken, process.env.jwt_secret_key)) {
+                    if (jwt.verify(requestToken, process.env.jwt_secret_key) && Utils.activeTokens.findIndex(requestToken) != -1) {
                          let decodedToken = jwt.decode(requestToken);
                          let uid = decodedToken.id;
                          let id = req.url.match(/\/api\/photos\/([0-9]+)/)[1];
@@ -97,7 +97,7 @@ const imageRouter = async (req, res) => {
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
-                    if (jwt.verify(requestToken, process.env.jwt_secret_key)) {
+                    if (jwt.verify(requestToken, process.env.jwt_secret_key) && Utils.activeTokens.findIndex(requestToken) != -1) {
                          let decodedToken = jwt.decode(requestToken);
                          let uid = decodedToken.id;
                          if (jsonController.getById(data.id).author == uid) {
