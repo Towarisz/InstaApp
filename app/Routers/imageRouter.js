@@ -19,8 +19,26 @@ const imageRouter = async (req, res) => {
                     res.end(JSON.stringify(jsonController.getById(req.url.match(/\/api\/photos\/([0-9]+)/)[1]), null, 5));
                } else if (req.url.match(/\/api\/photos\/image\/([0-9]+)/)) {
                     image = jsonController.getById(req.url.match(/\/api\/photos\/image\/([([0-9]+)/)[1]);
-                    res.writeHead(200, { "content-type": "image/text" });
-                    res.end(fileController.readPhoto(image.url), "binary");
+                    let contentType;
+                    switch(image.url.split(".")[1]){
+                         case "jpg":
+                              contentType = "image/jpg"
+                              break;
+                         case "jpeg":
+                              contentType = "image/jpeg"
+                              break;
+                         case "png":
+                              contentType = "image/png"
+                              break;
+                         case "mp4":
+                              contentType = "video/mp4"
+                              break;
+                         default:
+                              contentType = "image/text"
+                              break;
+                    }
+                    res.writeHead(200, { "content-type":  contentType});
+                    res.end(fileController.readPhoto(image.url));
                }
                break;
           case "POST":
