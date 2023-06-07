@@ -16,11 +16,11 @@ const userRouter = async (req, res) => {
                               res.end(JSON.stringify({ message: "user verified you can login to your account" }, null, 5));
                          } else {
                               res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
-                              res.end(JSON.stringify({ error: "token expired" }, null, 5));
+                              res.end(JSON.stringify({ message: "token expired" }, null, 5));
                          }
                     } else {
                          res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "user does not exist" }, null, 5));
+                         res.end(JSON.stringify({ message: "user does not exist" }, null, 5));
                     }
                } else if (req.url == "/api/user/logout") {
                     let requestToken = req.headers.authorization.split(" ")[1];
@@ -53,7 +53,7 @@ const userRouter = async (req, res) => {
                          })
                     ) {
                          res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "email already in use" }, null, 5));
+                         res.end(JSON.stringify({ message: "email already in use" }, null, 5));
                     } else {
                          user = new UserModel(data.name, data.lastname, data.email, encryptedPassword, token);
                          Utils.users.push(user);
@@ -84,15 +84,15 @@ const userRouter = async (req, res) => {
                                    res.end();
                               } else {
                                    res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
-                                   res.end(JSON.stringify({ error: "email or password is invalid" }, null, 5));
+                                   res.end(JSON.stringify({ message: "email or password is invalid" }, null, 5));
                               }
                          } else {
                               res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
-                              res.end(JSON.stringify({ error: `user is not verified please verify on http://localhost:3000/api/user/verify/${user.token}` }, null, 5));
+                              res.end(JSON.stringify({ message: `user is not verified please verify on http://localhost:3000/api/user/verify/${user.token}` }, null, 5));
                          }
                     } else {
                          res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "email or password is invalid" }, null, 5));
+                         res.end(JSON.stringify({ message: "email or password is invalid" }, null, 5));
                     }
                }
 

@@ -13,7 +13,7 @@ const filtersRouter = async (req, res) => {
                          res.end(JSON.stringify(await Utils.getMetadata(photo.url), null, 5));
                     } else {
                          res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "photo does not exist" }, null, 5));
+                         res.end(JSON.stringify({ message: "photo does not exist" }, null, 5));
                     }
                }
                break;
@@ -23,7 +23,7 @@ const filtersRouter = async (req, res) => {
                     data = JSON.parse(data);
                     if (!req.headers.authorization) {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "access denied" }, null, 5));
+                         res.end(JSON.stringify({ message: "access denied" }, null, 5));
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
@@ -55,11 +55,11 @@ const filtersRouter = async (req, res) => {
                               }
                          } else {
                               res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                              res.end(JSON.stringify({ error: "permition denied" }, null, 5));
+                              res.end(JSON.stringify({ message: "permition denied" }, null, 5));
                          }
                     } else {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "token expired" }, null, 5));
+                         res.end(JSON.stringify({ message: "token expired" }, null, 5));
                     }
                }
 
