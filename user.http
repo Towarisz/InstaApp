@@ -18,4 +18,4 @@ POST http://localhost:3000/api/user/login HTTP/1.1
 ###GET
 
 GET http://localhost:3000/api/user/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NTg3ODU1MTc5MSwiaWF0IjoxNjg1ODc4NTY2LCJleHAiOjE2ODg0NzA1NjZ9.RiCRhdBFG4auwHc96TQKC-PTiawDeU7C0ee6eZmF7tU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NTk1MDIzNjc2MCwiaWF0IjoxNjg1OTUwMjQ1LCJleHAiOjE2ODg1NDIyNDV9.FvKDG-tUeQfndmmNOJPGXRZqfg0z6QnuR8IkPwk81Uk
