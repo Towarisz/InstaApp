@@ -24,7 +24,7 @@ const imageRouter = async (req, res) => {
                     // Przesłanie zdjęcia do zapisu na serwer
                     if (!req.headers.authorization) {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "access denied" }, null, 5));
+                         res.end(JSON.stringify({ message: "access denied", success: false }, null, 5));
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
@@ -44,7 +44,7 @@ const imageRouter = async (req, res) => {
                          });
                     } else {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "token expired" }, null, 5));
+                         res.end(JSON.stringify({ message: "token expired", success: false }, null, 5));
                     }
                }
 
@@ -54,7 +54,7 @@ const imageRouter = async (req, res) => {
                     // Usunięcie podanego zdjęcia po id
                     if (!req.headers.authorization) {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "access denied" }, null, 5));
+                         res.end(JSON.stringify({ error: "access denied", success: false }, null, 5));
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
@@ -67,19 +67,19 @@ const imageRouter = async (req, res) => {
                                    if (photo != -1) {
                                         fileController.deleteFile(photo);
                                         res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
-                                        res.end(JSON.stringify({ message: "Deleted file with id: " + id }, null, 5));
+                                        res.end(JSON.stringify({ message: "Deleted file with id: " + id, success: true }, null, 5));
                                    } else {
                                         res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                                        res.end(JSON.stringify({ error: "No File with id: " + id }, null, 5));
+                                        res.end(JSON.stringify({ message: "No File with id: " + id, success: false }, null, 5));
                                    }
                               });
                          } else {
                               res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                              res.end(JSON.stringify({ error: "permition denied" }, null, 5));
+                              res.end(JSON.stringify({ message: "permition denied", success: false }, null, 5));
                          }
                     } else {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "token expired" }, null, 5));
+                         res.end(JSON.stringify({ message: "token expired", success: false }, null, 5));
                     }
                }
                break;
@@ -93,7 +93,7 @@ const imageRouter = async (req, res) => {
                } else if (req.url == "/api/photos/tags") {
                     if (!req.headers.authorization) {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "access denied" }, null, 5));
+                         res.end(JSON.stringify({ message: "access denied", success: false }, null, 5));
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
@@ -105,11 +105,11 @@ const imageRouter = async (req, res) => {
                               res.end(JSON.stringify(tagsController.addTags(jsonController.getById(data.id), data.tags), null, 5));
                          } else {
                               res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                              res.end(JSON.stringify({ error: "permition denied" }, null, 5));
+                              res.end(JSON.stringify({ message: "permition denied", success: false }, null, 5));
                          }
                     } else {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "token expired" }, null, 5));
+                         res.end(JSON.stringify({ message: "token expired", success: false }, null, 5));
                     }
                }
                break;

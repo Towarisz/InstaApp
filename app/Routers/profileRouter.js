@@ -5,7 +5,7 @@ const profileRouter = async (req, res) => {
                if (req.url == "/api/profile") {
                     if (!req.headers.authorization) {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "access denied" }, null, 5));
+                         res.end(JSON.stringify({ message: "access denied", success: false }, null, 5));
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
@@ -23,7 +23,7 @@ const profileRouter = async (req, res) => {
                          );
                     } else {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "access denied" }, null, 5));
+                         res.end(JSON.stringify({ message: "access denied", success: false }, null, 5));
                     }
                }
                break;
@@ -33,7 +33,7 @@ const profileRouter = async (req, res) => {
                     data = JSON.parse(data);
                     if (!req.headers.authorization) {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "access denied" }, null, 5));
+                         res.end(JSON.stringify({ message: "access denied", success: false }, null, 5));
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
@@ -46,7 +46,7 @@ const profileRouter = async (req, res) => {
                          res.end(JSON.stringify(profile, null, 5));
                     } else {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "access denied" }, null, 5));
+                         res.end(JSON.stringify({ message: "access denied", success: false }, null, 5));
                     }
                }
 
@@ -57,7 +57,7 @@ const profileRouter = async (req, res) => {
                     data = JSON.parse(data);
                     if (!req.headers.authorization) {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "access denied" }, null, 5));
+                         res.end(JSON.stringify({ message: "access denied", success: false }, null, 5));
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
@@ -77,7 +77,7 @@ const profileRouter = async (req, res) => {
                          });
                     } else {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ error: "access denied" }, null, 5));
+                         res.end(JSON.stringify({ message: "access denied", success: false }, null, 5));
                     }
                }
                break;
