@@ -5,17 +5,20 @@ POST http://localhost:3000/api/user/register HTTP/1.1
     "name":"Mateusz",
     "lastname":"Stoch",
     "email":"aab@gmail.com",
-    "passwd":"aaabbbccc"
+    "password":"aaabbbccc"
 }
 ### POST
 POST http://localhost:3000/api/user/login HTTP/1.1
 
 {
-    "email":"aab@gmail.com",
-    "passwd":"aaabbbccc"
+    "email":"a",
+    "password":"a"
 }
 
 ###GET
 
 GET http://localhost:3000/api/user/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NTk1MDIzNjc2MCwiaWF0IjoxNjg1OTUwMjQ1LCJleHAiOjE2ODg1NDIyNDV9.FvKDG-tUeQfndmmNOJPGXRZqfg0z6QnuR8IkPwk81Uk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NjIyNTg3MTg1NCwiaWF0IjoxNjg2MjI1ODg0LCJleHAiOjE2ODg4MTc4ODR9.kwTFO45XgCOkh3LUxeOpPLoSJdEo1UHgjenUReYMvb0
+
+###
+GET  http://localhost:3000/api/profile/1686223592478

@@ -36,7 +36,7 @@ const userRouter = async (req, res) => {
                if (req.url == "/api/user/register") {
                     let data = await Utils.getRequestData(req);
                     data = JSON.parse(data);
-                    let encryptedPassword = await bcrypt.hash(data.passwd, 15);
+                    let encryptedPassword = await bcrypt.hash(data.password, 15);
                     let token = await jwt.sign(
                          {
                               email: data.email,
@@ -47,26 +47,22 @@ const userRouter = async (req, res) => {
                               expiresIn: "1h",
                          }
                     );
-                    if (
-                         Utils.users.find((el) => {
-                              el.email == data.email && el.verfied == true;
-                         })
-                    ) {
+                    if (Utils.users.findIndex((el) => el.email == data.email && el.verified == true) != -1) {
                          res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
                          res.end(JSON.stringify({ message: "email already in use" }, null, 5));
                     } else {
-                         user = new UserModel(data.name, data.lastname, data.email, encryptedPassword, token);
+                         user = new UserModel(data.name, data.lastName, data.email, encryptedPassword, token);
                          Utils.users.push(user);
                          res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
-                         res.end(JSON.stringify({ message: `please verify on http://localhost:3000/api/user/verify/${user.token}` }, null, 5));
+                         res.end(JSON.stringify({ message: `http://${process.env.server_address}:3000/api/user/verify/${user.token}` }, null, 5));
                     }
                } else if (req.url == "/api/user/login") {
                     let data = await Utils.getRequestData(req);
                     data = JSON.parse(data);
                     user = Utils.users.find((el) => el.email == data.email);
-                    if (user != -1) {
+                    if (user != undefined) {
                          if (user.verified) {
-                              let decrypted = await bcrypt.compare(data.passwd, user.passwd);
+                              let decrypted = await bcrypt.compare(data.password, user.password);
                               if (decrypted) {
                                    let token = await jwt.sign(
                                         {
@@ -79,16 +75,15 @@ const userRouter = async (req, res) => {
                                    );
                                    user.giveNewToken(token);
                                    Utils.activeTokens.push(token);
-                                   res.setHeader("Authorization", "Bearer " + token);
                                    res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
-                                   res.end();
+                                   res.end(JSON.stringify({ message: token }, null, 5));
                               } else {
                                    res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
                                    res.end(JSON.stringify({ message: "email or password is invalid" }, null, 5));
                               }
                          } else {
-                              res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
-                              res.end(JSON.stringify({ message: `user is not verified please verify on http://localhost:3000/api/user/verify/${user.token}` }, null, 5));
+                              res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
+                              res.end(JSON.stringify({ message: `http://${process.env.server_address}:3000/api/user/verify/${user.token}` }, null, 5));
                          }
                     } else {
                          res.writeHead(404, { "content-type": "application/json;charset=utf-8" });

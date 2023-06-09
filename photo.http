@@ -12,7 +12,7 @@ Content-Type: video/mp4
 ### POST - zdjecia
 POST http://localhost:3000/api/photos HTTP/1.1
 Content-Type: multipart/form-data; boundary=----FormBoundary1234
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NTk1MDIzNjc2MCwiaWF0IjoxNjg1OTUwMjQ1LCJleHAiOjE2ODg1NDIyNDV9.FvKDG-tUeQfndmmNOJPGXRZqfg0z6QnuR8IkPwk81Uk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NjIyNjEzNjEyMywiaWF0IjoxNjg2MjI2MTUzLCJleHAiOjE2ODg4MTgxNTN9.x-Lxfv0C31xVtv9LGfudQqfJEGFEQtwxsJefeP7T978
 
 ------FormBoundary1234
 Content-Disposition: form-data; name="file"; filename="test.jpg"

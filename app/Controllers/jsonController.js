@@ -17,6 +17,7 @@ class JsonController {
      }
 
      update(_id, status) {
+          console.log(_id);
           let photo = this.photoArray.find((element) => element.id == _id);
           photo.update(status, Date.now());
           return photo;

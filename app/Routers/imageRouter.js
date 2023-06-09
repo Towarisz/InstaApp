@@ -15,12 +15,14 @@ const imageRouter = async (req, res) => {
                     res.end(JSON.stringify(jsonController.getAll(), null, 5));
                } else if (req.url.match(/\/api\/photos\/([0-9]+)/)) {
                     // Pobranie informacji na temat konkretnego zdjęcia po id
+                    console.log("Pobranie zdjecia");
                     res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
                     res.end(JSON.stringify(jsonController.getById(req.url.match(/\/api\/photos\/([0-9]+)/)[1]), null, 5));
                } else if (req.url.match(/\/api\/photos\/image\/([0-9]+)/)) {
                     image = jsonController.getById(req.url.match(/\/api\/photos\/image\/([([0-9]+)/)[1]);
                     let contentType;
-                    switch (image.url.split(".")[1]) {
+                    let type = image.url.split(".").pop();
+                    switch (type) {
                          case "jpg":
                               contentType = "image/jpg";
                               break;
@@ -38,7 +40,9 @@ const imageRouter = async (req, res) => {
                               break;
                     }
                     res.writeHead(200, { "content-type": contentType });
-                    res.end(fileController.readPhoto(image.url));
+                    let path = image.url.split("\\");
+                    path[path.length - 1] = image.history[image.history.length - 1].lastModifiedDate + "." + type;
+                    res.end(fileController.readPhoto(path.join("\\")));
                }
                break;
           case "POST":
@@ -53,11 +57,11 @@ const imageRouter = async (req, res) => {
                     if (jwt.verify(requestToken, process.env.jwt_secret_key) && Utils.activeTokens.findIndex((x) => x == requestToken) != -1) {
                          let decodedToken = jwt.decode(requestToken);
                          let uid = decodedToken.id;
-
                          let form = new formidable.IncomingForm();
                          form.keepExtensions = true;
                          form.parse(req, function (error, fields, files) {
                               let fileName = Date.now();
+                              Utils.users.find((x) => x.id == uid).photos.push(fileName);
                               let url = Path.join(__dirname, "../upload", fileName + "", fileName + "." + files.file.name.split(".").pop());
                               fileController.savePhoto(files.file, fileName).then(() => {
                                    res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
@@ -87,6 +91,11 @@ const imageRouter = async (req, res) => {
                          if (jsonController.getById(id).author == uid) {
                               jsonController.delete(id).then((photo) => {
                                    if (photo != -1) {
+                                        let user = Utils.users.find((x) => x.id == uid);
+                                        user.photos.split(
+                                             user.photos.findIndex((x) => x == id),
+                                             1
+                                        );
                                         fileController.deleteFile(photo);
                                         res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
                                         res.end(JSON.stringify({ message: "Deleted file with id: " + id }, null, 5));
@@ -122,6 +131,7 @@ const imageRouter = async (req, res) => {
                     if (jwt.verify(requestToken, process.env.jwt_secret_key) && Utils.activeTokens.findIndex((x) => x == requestToken) != -1) {
                          let decodedToken = jwt.decode(requestToken);
                          let uid = decodedToken.id;
+
                          if (jsonController.getById(data.id).author == uid) {
                               res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
                               res.end(JSON.stringify(tagsController.addTags(jsonController.getById(data.id), data.tags), null, 5));

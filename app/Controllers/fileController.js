@@ -29,6 +29,9 @@ class FileController {
      readPhoto(path) {
           return fs.readFileSync(path);
      }
+     exists(path) {
+          return fs.existsSync(path);
+     }
 }
 
 const fileController = new FileController();

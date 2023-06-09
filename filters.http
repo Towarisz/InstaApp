@@ -6,23 +6,25 @@ GET http://localhost:3000/api/filters/metadata/1684138224550 HTTP/1.1
 PATCH http://localhost:3000/api/filters HTTP/1.1
 
 {
-    "id":1685345353950,
+    "id":1686238835734,
     "filter":"ROTATE",
     "filterAction":"180"
 }
 
 ### PATCH
 PATCH http://localhost:3000/api/filters HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NjIzOTczOTQyMiwiaWF0IjoxNjg2MjM5ODAxLCJleHAiOjE2ODg4MzE4MDF9.9y5H495iFgGNvHAFtX3D_1XBbI24rtMW9ShRxWaavV0
 
 {
-    "id":1685345884271,
+    "id":1686239753818,
     "filter":"GRAYSCALE"
 }
 ### PATCH
 PATCH http://localhost:3000/api/filters HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NjIzOTczOTQyMiwiaWF0IjoxNjg2MjM5ODAxLCJleHAiOjE2ODg4MzE4MDF9.9y5H495iFgGNvHAFtX3D_1XBbI24rtMW9ShRxWaavV0
 
 {
-    "id":1685345884271,
+    "id":1686239753818,
     "filter":"NEGATE"
 }
 

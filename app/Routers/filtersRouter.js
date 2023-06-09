@@ -1,6 +1,7 @@
 const Utils = require("../utils.js");
 const filtersController = require("../Controllers/filtersController.js");
 const jsonController = require("../Controllers/jsonController.js");
+const jwt = require("jsonwebtoken");
 
 const filtersRouter = async (req, res) => {
      switch (req.method) {

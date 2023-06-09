@@ -1,5 +1,7 @@
 const Utils = require("../utils.js");
 const jwt = require("jsonwebtoken");
+const fileController = require("../Controllers/fileController.js");
+const Path = require("path");
 
 const profileRouter = async (req, res) => {
      switch (req.method) {
@@ -11,21 +13,34 @@ const profileRouter = async (req, res) => {
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
-                    if (jwt.verify(requestToken, process.env.jwt_secret_key) && Utils.activeTokens.findIndex(requestToken) != -1) {
+                    if (jwt.verify(requestToken, process.env.jwt_secret_key) && Utils.activeTokens.findIndex((x) => x == requestToken) != -1) {
                          let decodedToken = jwt.decode(requestToken);
                          let uid = decodedToken.id;
-
+                         let user = Utils.users.find((x) => x.id == uid);
                          res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
-                         res.end(
-                              JSON.stringify(
-                                   Utils.users.find((x) => x.id == uid),
-                                   null,
-                                   5
-                              )
-                         );
+                         res.end(JSON.stringify(user, null, 5));
                     } else {
                          res.writeHead(401, { "content-type": "application/json;charset=utf-8" });
                          res.end(JSON.stringify({ message: "access denied" }, null, 5));
+                    }
+               } else if (req.url.match(/\/api\/profile\/([0-9]+)/)) {
+                    let id = req.url.match(/([0-9]+)/)[0];
+                    user = Utils.users.find((x) => x.id == id);
+                    let response = {
+                         name: user.name,
+                         lastName: user.lastName,
+                    };
+                    res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
+                    res.end(JSON.stringify(response, null, 5));
+               } else if (req.url.match(/\/api\/profile\/pic\/([0-9]+)/)) {
+                    let id = req.url.match(/([0-9]+)/)[0];
+                    let path = Path.join(__dirname, "../upload/profile", "" + id + ".png");
+                    if (fileController.exists(path)) {
+                         res.writeHead(200, { "content-type": "image/png" });
+                         res.end(fileController.readPhoto(path));
+                    } else {
+                         res.writeHead(404, { "content-type": "application/json;charset=utf-8" });
+                         res.end(JSON.stringify({ message: "no profile pic" }, null, 5));
                     }
                }
                break;
@@ -39,11 +54,11 @@ const profileRouter = async (req, res) => {
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
-                    if (jwt.verify(requestToken, process.env.jwt_secret_key) && Utils.activeTokens.findIndex(requestToken) != -1) {
+                    if (jwt.verify(requestToken, process.env.jwt_secret_key) && Utils.activeTokens.findIndex((x) => x == requestToken) != -1) {
                          let decodedToken = jwt.decode(requestToken);
                          let uid = decodedToken.id;
                          let profile = Utils.users.find((x) => x.id == uid);
-                         profile.changeName(data.name, data?.lastname);
+                         profile.changeName(data.name, data?.lastName);
                          res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
                          res.end(JSON.stringify(profile, null, 5));
                     } else {
@@ -63,7 +78,7 @@ const profileRouter = async (req, res) => {
                          break;
                     }
                     let requestToken = req.headers.authorization.split(" ")[1];
-                    if (jwt.verify(requestToken, process.env.jwt_secret_key) && Utils.activeTokens.findIndex(requestToken) != -1) {
+                    if (jwt.verify(requestToken, process.env.jwt_secret_key) && Utils.activeTokens.findIndex((x) => x == requestToken) != -1) {
                          let decodedToken = jwt.decode(requestToken);
                          let uid = decodedToken.id;
                          let profile = Utils.users.find((x) => x.id == uid);
@@ -71,7 +86,7 @@ const profileRouter = async (req, res) => {
                          form.keepExtensions = true;
                          form.parse(req, function (error, fields, files) {
                               let fileName = uid;
-                              let url = Path.join(__dirname, "../upload/profile", fileName + "." + files.file.name.split(".").pop());
+                              let url = Path.join(__dirname, "../upload/profile", fileName + ".png");
                               fileController.savePhoto(files.file, fileName).then(() => {
                                    res.writeHead(200, { "content-type": "application/json;charset=utf-8" });
                                    res.end(JSON.stringify(profile, null, 5));
