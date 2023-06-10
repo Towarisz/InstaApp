@@ -16,9 +16,11 @@ POST http://localhost:3000/api/user/login HTTP/1.1
 }
 
 ###GET
-
 GET http://localhost:3000/api/user/logout
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NjIyNTg3MTg1NCwiaWF0IjoxNjg2MjI1ODg0LCJleHAiOjE2ODg4MTc4ODR9.kwTFO45XgCOkh3LUxeOpPLoSJdEo1UHgjenUReYMvb0
 
 ###
 GET  http://localhost:3000/api/profile/1686223592478
+
+###GET
+GET http://localhost:3000/api/user
