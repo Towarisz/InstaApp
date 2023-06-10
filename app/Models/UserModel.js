@@ -26,7 +26,7 @@ class UserModel {
      };
      changeName(_name, _lastname) {
           this.name = _name;
-          if (_lastname) this.lastname = _lastname;
+          this.lastName = _lastname;
      }
 }
 

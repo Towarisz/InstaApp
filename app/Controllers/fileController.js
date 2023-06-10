@@ -12,7 +12,7 @@ class FileController {
           }
           return;
      }
-     async createFile(fileData, fileName) {
+     async createFile(fileData, fileName, savepath) {
           let savePath = Path.join(__dirname, "../upload", fileName + "", fileName + "." + fileData.name.split(".").pop());
           return fs.writeFile(savePath, fs.readFileSync(fileData.path), function (error) {
                if (error) throw error;
@@ -23,6 +23,13 @@ class FileController {
                return this.createFile(file, fileName, fileName);
           });
      }
+
+     async saveProfilePhoto(file, path) {
+          return fs.writeFile(path, fs.readFileSync(file.path), function (error) {
+               if (error) throw error;
+          });
+     }
+
      deleteFile(file) {
           fs.rmSync(Path.join(file.url, "../"), { recursive: true }, () => {});
      }
